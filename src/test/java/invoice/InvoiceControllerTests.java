@@ -15,17 +15,30 @@
  */
 package invoice;
 
+import static org.hamcrest.CoreMatchers.*;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.Optional;
+
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
+import invoice.controller.InvoiceController;
+import invoice.dao.InvoiceByInvoiceNo;
+import invoice.dao.repository.InvoiceRepository;
+import invoice.service.InvoiceService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -34,20 +47,25 @@ public class InvoiceControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
+    @MockBean
+    private InvoiceService invoiceService;
+    @Mock
+    private InvoiceRepository invoiceRepository;
+    @InjectMocks
+    private InvoiceController invoiceController;
 
-    @Test
-    public void noParamGreetingShouldReturnDefaultMessage() throws Exception {
-
-        this.mockMvc.perform(get("/test")).andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("$.content").value("Hello, World!"));
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    public void paramGreetingShouldReturnTailoredMessage() throws Exception {
-
-        this.mockMvc.perform(get("/greeting").param("name", "Spring Community"))
-                .andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("$.content").value("Hello, Spring Community!"));
+    public void sampleTest() throws Exception {
+    	Optional<InvoiceByInvoiceNo> expect = null;
+        when(invoiceService.search("1")).thenReturn(expect);
+        mockMvc.perform(get("/invoice/1"))
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("Hello Mock")));
     }
 
 }
