@@ -19,79 +19,79 @@ import lombok.ToString;
 
 /**
   * The Class Invoice.
-  */
- @NoArgsConstructor
- @AllArgsConstructor
- @ToString
- @Data
- @Entity
- @Table(name = "invoice")
- public class InvoiceEntity implements Serializable {
+*/
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Data
+@Entity
+@Table(name = "invoice")
+public class InvoiceEntity implements Serializable {
 
-     /** The Constant serialVersionUID. */
-     private static final long serialVersionUID = 1L;
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = 1L;
 
-     /** The invoice no. */
-     @Id
-     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     @Column(name = "invoice_no")
-     private int invoiceNo;
+    /** The invoice no. */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "invoice_no")
+    private int invoiceNo;
 
-     /** The client no. */
-     @Column(name = "client_no")
-     private int clientNo;
+    /** The client no. */
+    @Column(name = "client_no")
+    private int clientNo;
 
-     /** The del flg. */
-     @Column(name = "del_flg")
-     private String delFlg;
+    /** The del flg. */
+    @Column(name = "del_flg")
+    private String delFlg;
 
-     /** The invoice amt. */
-     @Column(name = "invoice_amt")
-     private int invoiceAmt;
+    /** The invoice amt. */
+    @Column(name = "invoice_amt")
+    private int invoiceAmt;
 
-     /** The invoice create date. */
-     @Temporal(TemporalType.DATE)
-     @Column(name = "invoice_create_date")
-     private Date invoiceCreateDate;
+    /** The invoice create date. */
+    @Temporal(TemporalType.DATE)
+    @Column(name = "invoice_create_date")
+    private Date invoiceCreateDate;
 
-     /** The invoice end date. */
-     @Temporal(TemporalType.DATE)
-     @Column(name = "invoice_end_date")
-     private Date invoiceEndDate;
+    /** The invoice end date. */
+    @Temporal(TemporalType.DATE)
+    @Column(name = "invoice_end_date")
+    private Date invoiceEndDate;
 
-     /** The invoice note. */
-     @Column(name = "invoice_note")
-     private String invoiceNote;
+    /** The invoice note. */
+    @Column(name = "invoice_note")
+    private String invoiceNote;
 
-     /** The invoice start date. */
-     @Temporal(TemporalType.DATE)
-     @Column(name = "invoice_start_date")
-     private Date invoiceStartDate;
+    /** The invoice start date. */
+    @Temporal(TemporalType.DATE)
+    @Column(name = "invoice_start_date")
+    private Date invoiceStartDate;
 
-     /** The invoice status. */
-     @Column(name = "invoice_status")
-     private String invoiceStatus;
+    /** The invoice status. */
+    @Column(name = "invoice_status")
+    private String invoiceStatus;
 
-     /** The invoice title. */
-     @Column(name = "invoice_title")
-     private String invoiceTitle;
+    /** The invoice title. */
+    @Column(name = "invoice_title")
+    private String invoiceTitle;
 
-     /** The create datetime. */
-     @Temporal(TemporalType.TIMESTAMP)
-     @Column(name = "create_datetime", insertable = false, updatable = false)
+    /** The create datetime. */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_datetime", insertable = false, updatable = false)
     private Date createDatetime;
 
     /** The create user. */
-     @Column(name = "create_user")
-     private String createUser;
+    @Column(name = "create_user")
+    private String createUser;
 
-     /** The update datetime. */
-     @Temporal(TemporalType.TIMESTAMP)
-     @Column(name = "update_datetime", insertable = false, updatable = false)
-     private Date updateDatetime;
+    /** The update datetime. */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "update_datetime", insertable = false, updatable = false)
+    private Date updateDatetime;
 
-     /** The update user. */
-     @Column(name = "update_user")
-     private String updateUser;
+    /** The update user. */
+    @Column(name = "update_user")
+    private String updateUser;
 
- }
+}

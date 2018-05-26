@@ -30,13 +30,13 @@ public class InvoiceController {
         return invoiceService.test();
     }
 
-    @RequestMapping(value="/invoice/{invoice_no}", method = RequestMethod.GET)
-    public Optional<InvoiceByInvoiceNo> search(@PathVariable("invoice_no") String invoiceNo) {
+    @RequestMapping(value = "/invoice/{invoice_no}", method = RequestMethod.GET)
+    public Optional<InvoiceByInvoiceNo> search(@PathVariable("invoice_no") final String invoiceNo) {
         return invoiceService.search(invoiceNo);
     }
 
-    @RequestMapping(method=RequestMethod.POST)
-    public InvoiceEntity postCustomer(@RequestBody InvoiceEntity invoice) {
+    @RequestMapping(method = RequestMethod.POST)
+    public InvoiceEntity postCustomer(@RequestBody final InvoiceEntity invoice) {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("dataSource.xml")) {
             InvoiceEntity  result = invoiceRepository.save(invoice);
             return result;

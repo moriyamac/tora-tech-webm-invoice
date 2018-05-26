@@ -24,6 +24,9 @@ public class InvoiceService {
     @Autowired
     DirectSqlRepository directSqlRepository;
 
+    /**
+     * @return InvoiceEntity
+     */
     public List<InvoiceEntity> test() {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("dataSource.xml")) {
             List<InvoiceEntity>  result = invoiceRepository.findAll();
@@ -31,7 +34,11 @@ public class InvoiceService {
         }
     }
 
-    public Optional<InvoiceByInvoiceNo> search(String invoiceNo) {
+    /**
+     * @param invoiceNo
+     * @return
+     */
+    public Optional<InvoiceByInvoiceNo> search(final String invoiceNo) {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("dataSource.xml")) {
             Optional<InvoiceByInvoiceNo> result = directSqlRepository.getInvoiceByInvoiceNo(invoiceNo);
             return result;

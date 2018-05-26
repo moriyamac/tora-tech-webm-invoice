@@ -16,10 +16,39 @@ import lombok.ToString;
 @Data
 public class InvoiceByInvoiceNo implements Serializable {
 
-    private int clientNo;
+    private String invoiceNo;
 
-    private int itemCount;
+    private String clientNo;
 
-    private int invoiceNo;
+    private String clientChargeName;
 
+    private String clientName;
+
+    private String clientAddress;
+
+    private String clientTel;
+
+    private String clientFax;
+
+    private String invoiceStatus;
+
+    private String invoiceCreateDate;
+
+    private String invoiceTitle;
+
+    private String invoiceAmt;
+
+    private String invoiceStartDate;
+
+    private String invoiceEndDate;
+
+    private String invoiceNote;
+
+    private String createUser;
+
+    private String createDatetime;
+
+    private String updateUser;
+
+    private String updateDatetime;
 }
