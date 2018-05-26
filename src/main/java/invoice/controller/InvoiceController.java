@@ -1,6 +1,5 @@
 package invoice.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,23 +24,17 @@ public class InvoiceController {
     @Autowired
     InvoiceRepository invoiceRepository;
 
-    @RequestMapping("/test")
-    public List<InvoiceEntity> test() {
-        return invoiceService.test();
-    }
-
     @RequestMapping(value = "/invoice/{invoice_no}", method = RequestMethod.GET)
     public Optional<InvoiceByInvoiceNo> search(@PathVariable("invoice_no") final String invoiceNo) {
         return invoiceService.search(invoiceNo);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public InvoiceEntity postCustomer(@RequestBody final InvoiceEntity invoice) {
+    @RequestMapping(value = "/invoice", method = RequestMethod.POST)
+    public InvoiceEntity create(@RequestBody final InvoiceEntity invoice) {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("dataSource.xml")) {
             InvoiceEntity  result = invoiceRepository.save(invoice);
             return result;
         }
 
     }
-
 }

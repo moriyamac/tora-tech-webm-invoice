@@ -1,6 +1,5 @@
 package invoice.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import invoice.dao.InvoiceByInvoiceNo;
-import invoice.dao.model.InvoiceEntity;
 import invoice.dao.repository.DirectSqlRepository;
 import invoice.dao.repository.InvoiceRepository;
 
@@ -23,16 +21,6 @@ public class InvoiceService {
     InvoiceRepository invoiceRepository;
     @Autowired
     DirectSqlRepository directSqlRepository;
-
-    /**
-     * @return InvoiceEntity
-     */
-    public List<InvoiceEntity> test() {
-        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("dataSource.xml")) {
-            List<InvoiceEntity>  result = invoiceRepository.findAll();
-            return result;
-        }
-    }
 
     /**
      * @param invoiceNo
