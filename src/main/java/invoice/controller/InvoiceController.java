@@ -3,7 +3,6 @@ package invoice.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,10 +30,6 @@ public class InvoiceController {
 
     @RequestMapping(value = "/invoice", method = RequestMethod.POST)
     public InvoiceEntity create(@RequestBody final InvoiceEntity invoice) {
-        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("dataSource.xml")) {
-            InvoiceEntity  result = invoiceRepository.save(invoice);
-            return result;
-        }
-
+        return invoiceService.save(invoice);
     }
 }

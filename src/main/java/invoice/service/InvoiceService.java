@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import invoice.dao.InvoiceByInvoiceNo;
+import invoice.dao.model.InvoiceEntity;
 import invoice.dao.repository.DirectSqlRepository;
 import invoice.dao.repository.InvoiceRepository;
 
@@ -29,6 +30,17 @@ public class InvoiceService {
     public Optional<InvoiceByInvoiceNo> search(final String invoiceNo) {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("dataSource.xml")) {
             Optional<InvoiceByInvoiceNo> result = directSqlRepository.getInvoiceByInvoiceNo(invoiceNo);
+            return result;
+        }
+    }
+
+    /**
+     * @param entity
+     * @return
+     */
+    public InvoiceEntity save(final InvoiceEntity entity) {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("dataSource.xml")) {
+        	InvoiceEntity  result = invoiceRepository.save(entity);
             return result;
         }
     }
