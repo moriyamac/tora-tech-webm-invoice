@@ -1,7 +1,6 @@
 package invoice.dao.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.annotation.Resource;
 
@@ -9,7 +8,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import invoice.dao.InvoiceByInvoiceNo;
+import invoice.dao.InvoiceStatus;
+import invoice.response.InvoiceResult;
 
 @Component
 public class DirectSqlRepository {
@@ -21,12 +21,11 @@ public class DirectSqlRepository {
             + "SELECT "
             + "    i.invoice_no, "
             + "    c.client_no, "
-            //+ "    c.client_charge_name, "
+            + "    CONCAT(c.client_charge_first_name,c.client_charge_last_name) as client_charge_name, "
             + "    c.client_name, "
             + "    c.client_address, "
             + "    c.client_tel, "
             + "    c.client_fax, "
-            //+ "    i.invoice_status_code, "
             + "    i.invoice_status, "
             + "    i.invoice_create_date, "
             + "    i.invoice_title, "
@@ -54,18 +53,20 @@ public class DirectSqlRepository {
      * @param invoiceNo
      * @return InvoiceByInvoiceNo
      */
-    public Optional<InvoiceByInvoiceNo> getInvoiceByInvoiceNo(final String invoiceNo) {
-        List<InvoiceByInvoiceNo> result = namedParameterJdbcTemplate.query(SELECT_DIRECT_SQL,
+    public List<InvoiceResult> getInvoiceByInvoiceNo(final String invoiceNo) {
+        List<InvoiceResult> result = namedParameterJdbcTemplate.query(SELECT_DIRECT_SQL,
                 new MapSqlParameterSource().addValue("invoice_no", invoiceNo),
             (rs, i) -> {
-                InvoiceByInvoiceNo dto = new InvoiceByInvoiceNo();
+                InvoiceResult dto = new InvoiceResult();
                 dto.setInvoiceNo(rs.getString("invoice_no"));
                 dto.setClientNo(rs.getString("client_no"));
+                dto.setClientChargeName(rs.getString("client_charge_name"));
                 dto.setClientName(rs.getString("client_name"));
                 dto.setClientAddress(rs.getString("client_address"));
                 dto.setClientTel(rs.getString("client_tel"));
                 dto.setClientFax(rs.getString("client_fax"));
-                dto.setInvoiceStatus(rs.getString("invoice_status"));
+                dto.setInvoiceStatusCode(rs.getString("invoice_status"));
+                dto.setInvoiceStatus(InvoiceStatus.ofCode(rs.getString("invoice_status")));
                 dto.setInvoiceCreateDate(rs.getString("invoice_create_date"));
                 dto.setInvoiceTitle(rs.getString("invoice_title"));
                 dto.setInvoiceAmt(rs.getString("invoice_amt"));
@@ -78,6 +79,6 @@ public class DirectSqlRepository {
                 dto.setUpdateDatetime(rs.getString("update_datetime"));
                 return dto;
             });
-        return result.isEmpty() ? Optional.empty() : Optional.of(result.get(0));
+        return result;
     }
 }
