@@ -4,6 +4,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 
 @RestControllerAdvice
-public class ApplicationException extends RuntimeException  {
+public class ApplicationException extends Exception  {
 
 }

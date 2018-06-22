@@ -27,6 +27,7 @@ public class InvoiceRepository {
             + "INSERT INTO "
             + "invoice("
             + " client_no,"
+            + " invoice_title,"
             + " invoice_status,"
             + " invoice_create_date,"
             + " invoice_amt,"
@@ -35,13 +36,14 @@ public class InvoiceRepository {
             + " create_user,"
             + " update_user"
             + ")"
-            + " values(?,?,?,?,?,?,?,?)";
+            + " values(?,?,?,?,?,?,?,?,?)";
 
     private static final String GET_NEW_INSERT_NO = "SELECT invoice_no FROM invoice ORDER BY invoice_no desc limit 1;";
 
     public List<InvoiceResult> save(final InvoiceEntity invoice) {
         jdbcTemplate.update(INSERT_INVOICE_SQL,
                 invoice.getClientNo(), //client_no
+                "追加した請求書", //invoice_title
                 InvoiceStatus.PENDING.getStatus(), //invoice_status
                 new Date(), //invoice_create_date
                 1000, //invoice_amt

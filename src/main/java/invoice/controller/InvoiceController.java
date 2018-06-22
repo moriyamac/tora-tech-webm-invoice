@@ -32,7 +32,15 @@ public class InvoiceController {
     @Autowired
     InvoiceRepository invoiceRepository;
 
-    @RequestMapping(value = "/{invoice_no}", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
+    @CrossOrigin
+    public ResponseInvoice searchAll() {
+        List<InvoiceResult> result = invoiceService.searchAll();
+        ResponseInvoice response = new ResponseInvoice(null, result);
+        return response;
+    }
+
+    @RequestMapping(value = "{invoice_no}", method = RequestMethod.GET)
     @CrossOrigin
     public ResponseInvoice search(@PathVariable("invoice_no") final String invoiceNo) {
         List<InvoiceResult> result = invoiceService.search(invoiceNo);
@@ -58,7 +66,7 @@ public class InvoiceController {
         InvoiceError error = new InvoiceError();
         error.setErrorCode("40002");
         error.setErrorDetail("invoice_start_date,invoice_end_date");
-        error.setErrorDetail("請求日時のフォーマットが不正です。");
+        error.setErrorMessage("請求日時のフォーマットが不正です。");
         List<InvoiceError> errorList = new ArrayList<InvoiceError>();
         errorList.add(error);
         ResponseInvoice response = new ResponseInvoice(errorList, null);

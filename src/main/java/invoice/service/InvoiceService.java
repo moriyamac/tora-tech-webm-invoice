@@ -27,6 +27,17 @@ public class InvoiceService {
      * @param invoiceNo
      * @return
      */
+    public List<InvoiceResult> searchAll() {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("dataSource.xml")) {
+            List<InvoiceResult> result = directSqlRepository.getInvoiceAll();
+            return result;
+        }
+    }
+
+    /**
+     * @param invoiceNo
+     * @return
+     */
     public List<InvoiceResult> search(final String invoiceNo) {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("dataSource.xml")) {
             List<InvoiceResult> result = directSqlRepository.getInvoiceByInvoiceNo(invoiceNo);
