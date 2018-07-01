@@ -43,7 +43,7 @@ public class InvoiceRepository {
     public List<InvoiceResult> save(final InvoiceEntity invoice) {
         jdbcTemplate.update(INSERT_INVOICE_SQL,
                 invoice.getClientNo(), //client_no
-                "追加した請求書", //invoice_title
+                "New Invoice Title", //invoice_title
                 InvoiceStatus.PENDING.getStatus(), //invoice_status
                 new Date(), //invoice_create_date
                 1000, //invoice_amt
